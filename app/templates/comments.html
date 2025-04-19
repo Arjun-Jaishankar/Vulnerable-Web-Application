@@ -1,0 +1,20 @@
+<!-- templates/comments.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Comments</title>
+</head>
+<body>
+    <h1>Leave a Comment</h1>
+    <form method="post">
+        <textarea name="comment"></textarea>
+        <button type="submit">Submit</button>
+    </form>
+    <h2>All Comments</h2>
+    <ul>
+        {% for comment in comments %}
+            <li>{{ comment[1] | safe }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

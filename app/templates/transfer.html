@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transfer Funds</title>
+    <script>
+        function fetchBalance() {
+            var accountNumber = document.getElementById("account_number").value;
+            if (accountNumber) {
+                fetch(`/check_balance?account_number=${accountNumber}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("balance_display").innerText = "Balance: $" + (data.balance !== null ? data.balance : "Account not found");
+                })
+                .catch(error => console.error("Error fetching balance:", error));
+            }
+        }
+    </script>
+</head>
+<body>
+    <h2>Transfer Funds</h2>
+
+    <p><strong>Your Account Number:</strong> 100</p>
+
+    <form method="POST" action="/transfer">
+        <label for="account_number">Recipient Account Number:</label>
+        <input type="number" id="account_number" name="account_number" required>
+        <button type="button" onclick="fetchBalance()">Check Balance</button>
+        <p id="balance_display"></p>
+        <br><br>
+
+        <label for="amount">Amount ($):</label>
+        <input type="number" id="amount" name="amount" step="0.01" required><br><br>
+
+        <button type="submit">Transfer</button>
+    </form>
+</body>
+</html>
